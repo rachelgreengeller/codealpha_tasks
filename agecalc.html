@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+</head>
+<body>
+    <h1>Age Calculator</h1>
+    <form>
+        <label for="dob">Date of Birth:</label>
+        <input type="number" id="dob" placeholder="Date" required>
+        <input type="number" id="mob" placeholder="Month" required>
+        <input type="number" id="yob" placeholder="Year" required>
+        <button type="button" id="calculate">Calculate Age</button>
+    </form>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById("calculate").addEventListener("click", calculateAge);
+
+        function calculateAge() {
+            const dob = parseInt(document.getElementById("dob").value);
+            const mob = parseInt(document.getElementById("mob").value);
+            const yob = parseInt(document.getElementById("yob").value);
+
+            if (isNaN(dob) || isNaN(mob) || isNaN(yob)) {
+                alert("Please enter valid date, month, and year.");
+                return;
+            }
+
+            const birthDate = new Date(yob, mob - 1, dob);
+            const currentDate = new Date();
+            const age = currentDate.getFullYear() - birthDate.getFullYear();
+
+            if (currentDate < new Date(currentDate.getFullYear(), mob - 1, dob)) {
+                // The birthdate hasn't occurred this year yet.
+                age--;
+            }
+
+            document.getElementById("result").innerText = `Your age is ${age} years old.`;
+        }
+    </script>
+</body>
+</html>
